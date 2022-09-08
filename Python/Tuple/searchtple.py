@@ -1,3 +1,4 @@
+#7.7
 def lSearch(t1,val):
     for i in range(0,len(t1)):
         if t[i]==val:
