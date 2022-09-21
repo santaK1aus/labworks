@@ -30,11 +30,11 @@ length=int(input())
 s=input('')
 q=int(input(''))
 ps=allpali(s)
-while(q>=0):
+while(q>1):
 	s=input().split(' ')
 	a=int(s[0])
 	b=int(s[1])
-	if a<1 or b>len(ps):
+	if a<1 or b>=len(ps):
 		print('-1')
 	else:
 		print(ps[a-1:b])
