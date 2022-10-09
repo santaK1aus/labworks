@@ -10,4 +10,4 @@ def statistics(n):
         print(i,end=' ')
     return avg
 
-print(statistics(25))
+print('\nAverage :',statistics(25))
