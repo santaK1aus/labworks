@@ -1,0 +1,2 @@
+Writing in file1.txt
+Writing in 2nd Line
