@@ -1,3 +1,2 @@
-content 1
-content 2
-content 3
+wRITING IN FILE1.TXT
+wRITING IN 2ND lINE
