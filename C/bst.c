@@ -24,6 +24,19 @@ struct Node* insert(struct Node* root, int val){
 	return root;
 }
 
+struct Node* delete(struct Node* root, int val){
+	if(root==NULL){
+		return NULL;
+	}
+	struct Node* temp;
+	if(root->data>val)
+		temp=delete(root->left,val);
+	else if(root->data<val)
+		temp=delete(root->right,val);
+	else	return root;
+	
+}
+
 void inorder(struct Node* root){
 	if(root==NULL) return;
 	inorder(root->left);
