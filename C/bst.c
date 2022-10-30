@@ -24,17 +24,30 @@ struct Node* insert(struct Node* root, int val){
 	return root;
 }
 
+int findLargest(struct Node* root){					//Expects initial root to be not NULL otherwise segfaults
+	if(root->right!=NULL) return findLargest(root->right);
+	else return root->data;
+}
+
 struct Node* delete(struct Node* root, int val){
-	if(root==NULL){
-		return NULL;
+	if(root==NULL) return NULL;
+	if(root->data==val){
+		if(root->left==NULL && root->right==NULL){
+			free(root);
+			return NULL;
+		}
+		if(root->left==NULL || root->right==NULL){
+			struct Node* child=(root->left==NULL)?root->right:root->left;
+			free(root);
+			return child;
+		}
+		int max=findLargest(root->left);
+		root->data=max;
+		root->left=delete(root->left,max);
 	}
-	struct Node* temp;
-	if(root->data>val)
-		temp=delete(root->left,val);
-	else if(root->data<val)
-		temp=delete(root->right,val);
-	else	return root;
-	
+	else if(val>root->data) root->right=delete(root->right,val);
+	else root->left=delete(root->left,val);
+	return root;
 }
 
 void inorder(struct Node* root){
@@ -62,7 +75,7 @@ void main(){
 	struct Node* start=NULL;
 	int ch,val;
 	do{
-		printf("1.Insert\n2.Display In Order\n3.Display Pre Order\n4.Display Post Order\n5.Exit\nEnter choice : ");
+		printf("1.Insert\n2.Display In Order\n3.Display Pre Order\n4.Display Post Order\n5.Delete value\n6.Exit\nEnter choice : ");
 		scanf("%d",&ch);
 		switch(ch){
 			case 1:printf("Enter value : ");
@@ -78,8 +91,12 @@ void main(){
 			case 4:postorder(start);
 				printf("\n\n");
 				break;
-			case 5:break;
+			case 5:printf("Enter value : ");
+				scanf("%d",&val);
+				start=delete(start,val);
+				break;
+			case 6:break;
 			default:printf("Wrong input\n");
 		}
-	}while(ch!=5);
+	}while(ch!=6);
 }
