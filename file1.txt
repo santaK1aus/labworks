@@ -1,2 +1,3 @@
 Writing in file1.txt
 Writing in 2nd Line
+Appending 3rd line from another script

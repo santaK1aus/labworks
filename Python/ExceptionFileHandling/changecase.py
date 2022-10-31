@@ -1,5 +1,5 @@
 #11.17
-from curses.ascii import isupper
+#from curses.ascii import isupper
 
 
 fr=open('file1.txt','r')
