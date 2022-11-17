@@ -120,15 +120,18 @@ struct Node* add(struct Node* pa,struct Node* pb){
 			tempa=tempa->next;
 		tempa->next=pb;
 	}
+	return pa;
 }
 
 void display(struct Node *start){
 	struct Node *temp=start;
 	char ch[]={'x','y','z'};
 	while(temp!=NULL){
-		if(temp->coff>0 && temp!=start)
+		int fl=(temp->coff<0);
+		printf(" %c %d",(fl)?'-':'+',(fl)?temp->coff*-1:temp->coff);
+		/*if(temp->coff>0 && temp!=start)
 			printf("+");
-		printf("%d",temp->coff);
+		printf("%d",temp->coff);*/
 		for(int i=0;i<3;i++){
 			if(temp->pow[i]==1)
 				printf("%c",ch[i]);
@@ -136,8 +139,12 @@ void display(struct Node *start){
 				printf("%c^%d",ch[i],temp->pow[i]);
 		}
 		temp=temp->next;
-		printf("  ");
+		//printf("  ");
 	}
+	if(start!=NULL)
+		printf(" = 0");
+	else
+		printf("Empty equation");
 	printf("\n\n");
 }
 
