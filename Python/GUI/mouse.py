@@ -1,4 +1,4 @@
-from tkinter import *;
+from tkinter import *
 
 var = Tk()
 var.title("Click ME !")
