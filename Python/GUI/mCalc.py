@@ -74,8 +74,8 @@ class Ops:
         dictf={'add':self.add,'sub':self.sub,'mult':self.mult,'div':self.div,'mod':self.mod,'pow':self.power}
         if(not len(preOp)>0):
             return
-        dictf[preOp](now=1)
-        self.display(self.preCalc)
+        if dictf[preOp](now=1) == True:
+            self.display(self.preCalc)
     
     def display(self,x):
         maintext.delete(0,len(maintext.get()))
@@ -84,7 +84,7 @@ class Ops:
     def mod(self,now=0):
         if(now==1):
             self.preCalc=self.preCalc/100*self.postCalc
-            return
+            return True
         self.pressOp=True
         self.getData()
         self.doPrevious()
@@ -93,7 +93,7 @@ class Ops:
     def add(self,now=0):
         if(now==1):
             self.preCalc=self.preCalc+self.postCalc
-            return
+            return True
         self.pressOp=True
         self.getData()
         self.doPrevious()
@@ -102,7 +102,7 @@ class Ops:
     def sub(self,now=0):
         if(now==1):
             self.preCalc=self.preCalc-self.postCalc
-            return
+            return True
         self.pressOp=True
         self.getData()
         self.doPrevious()
@@ -111,7 +111,7 @@ class Ops:
     def mult(self,now=0):
         if(now==1):
             self.preCalc=self.preCalc*self.postCalc
-            return
+            return True
         self.pressOp=True
         self.getData()
         self.doPrevious()
@@ -119,8 +119,12 @@ class Ops:
 
     def div(self,now=0):
         if(now==1):
-            self.preCalc=self.preCalc/self.postCalc
-            return
+            try:
+                self.preCalc=self.preCalc/self.postCalc
+                return True
+            except ZeroDivisionError:
+                self.display('Zero Division Error')
+                return False
         self.pressOp=True
         self.getData()
         self.doPrevious()
@@ -129,7 +133,7 @@ class Ops:
     def power(self,now=0):
         if(now==1):
             self.preCalc=self.preCalc**self.postCalc
-            return
+            return True
         self.pressOp=True
         self.getData()
         self.doPrevious()
