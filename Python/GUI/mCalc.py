@@ -5,18 +5,18 @@ import math
 
 MainWindow = tk.Tk()
 MainWindow.title("Scientific Calculator")
-MainWindow.geometry("220x303")
+MainWindow.geometry("226x314")
 
 MainFrame=tk.Frame(MainWindow)
 MainWindow.resizable(width=False,height=False)
 maintext= ttk.Entry(MainFrame,width=18,font=('Arial',16,'bold'),justify='right')
-maintext.grid(row=0,column=0,columnspan=5,sticky='W',padx=0,ipady=5)
+maintext.grid(row=0,column=0,columnspan=5,sticky='W',padx=0,ipadx=2,ipady=5)
 maintext.insert(0,'0')
 
 bHeight=11
 bWidth=4
-bPadX=0
-bPadY=0
+bPadX=1
+bPadY=1
 
 bStyle=ttk.Style()
 bStyle.theme_use('default')
@@ -231,18 +231,18 @@ def setButtons(bHeight=3,bWidth=5,bPadX=5,bPadY=5):
 
 def bigger():
     MainWindow.resizable(width=False,height=False)
-    maintext.config(width=22)
-    maintext.grid(ipadx=3)
-    MainWindow.geometry("275x356")
+    maintext.config(width=23)
+    maintext.grid(ipadx=1)
+    MainWindow.geometry("284x368")
 
 def smaller():
     MainWindow.resizable(width=False,height=False)
     maintext.config(width=18)
-    maintext.grid(ipadx=0)
-    MainWindow.geometry("220x303")
+    maintext.grid(ipadx=2)
+    MainWindow.geometry("226x314")
 
 setButtons(bHeight,bWidth,bPadX,bPadY)
-MainFrame.grid(padx=0,pady=0)
+MainFrame.grid(padx=1,pady=0)
 menubar=tk.Menu(MainFrame)
 
 # ManuBar 1 :
