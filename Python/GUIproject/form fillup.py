@@ -22,15 +22,14 @@ style.theme_use("default")
 
 #show warning
 def popup():
-    messagebox.showwarning("Warning","please tick the checkbox")
-def click():
-    if(var2.get()==0):
-        popup()
-    else:
-        return
+    messagebox.showwarning("Warning","Please tick the checkbox")
+#def click():
+#    if(var2.get()==0):
+#        popup()
+#    else:
+#        return
 
 #submit window
-
 def open():
     top=Toplevel()
     top.geometry("1000x1000")
@@ -38,7 +37,6 @@ def open():
     style=ttk.Style(top)
     style.theme_use("clam")
 
-    
     #Personal details
     l0=ttk.Label(top,text="PERSONAL DETAILS",font=('Times', 16))
     l0.grid(row=0,column=0,padx=20,pady=20)
@@ -68,43 +66,48 @@ def open():
     ldep.grid(row=16,column=0,padx=10,pady=10)
     lyr=ttk.Label(top,text="YEAR")
     lyr.grid(row=17,column=0,padx=10,pady=10)
-    
-
-    e10=ttk.Entry(top,width=30)
-    e10.grid(row=3,column=1,columnspan=100)
-    e10.insert(0,"DD/MM/YYYY")
-    e7=ttk.Entry(top,width=30)
-    e7.grid(row=2,column=1,columnspan=100)
-    e=ttk.Entry(top,width=30)
-    e.grid(row=1,column=1,columnspan=100)
-    e1=ttk.Entry(top,width=30)
-    e1.grid(row=5,column=1,columnspan=100)
-    e2=ttk.Entry(top,width=30)
-    e2.grid(row=8,column=1,columnspan=100)
+    #Entry Fields
+    eName=ttk.Entry(top,width=30)
+    eName.grid(row=1,column=1,columnspan=100)
+    eMnum=ttk.Entry(top,width=30)
+    eMnum.grid(row=2,column=1,columnspan=100)
+    eDOB=ttk.Entry(top,width=30)
+    eDOB.grid(row=3,column=1,columnspan=100)
+    eDOB.insert(0,"DD/MM/YYYY")
+    eAd1=ttk.Entry(top,width=30)
+    eAd1.grid(row=5,column=1,columnspan=100)
+    eAd2=ttk.Entry(top,width=30)
+    eAd2.grid(row=8,column=1,columnspan=100)
     #dropdown boxes
-    var=StringVar()
-    drop=ttk.OptionMenu(top,var,"West Bengal","Bihar","Jharkhand")
-    drop.grid(row=10,column=1)
-    e3=ttk.Entry(top,width=30)
-    e3.grid(row=11,column=1,columnspan=100)
-    e4=ttk.Entry(top,width=30)
-    e4.grid(row=12,column=1,columnspan=100)
+    eState=StringVar()
+    dropState=ttk.OptionMenu(top,eState,"West Bengal","Bihar","Jharkhand")
+    dropState.grid(row=10,column=1)
+    eGname=ttk.Entry(top,width=30)
+    eGname.grid(row=11,column=1,columnspan=100)
+    eMail=ttk.Entry(top,width=30)
+    eMail.grid(row=12,column=1,columnspan=100)
     #academic details
-    e5=ttk.Entry(top,width=30)
-    e5.grid(row=14,column=1,columnspan=100)
-    e6=ttk.Entry(top,width=30)
-    e6.grid(row=16,column=1,columnspan=100)
-    e6=ttk.Entry(top,width=30)
-    e6.grid(row=15,column=1,columnspan=100)
+    eNcol=ttk.Entry(top,width=30)
+    eNcol.grid(row=14,column=1,columnspan=100)
+    eCname=ttk.Entry(top,width=30)
+    eCname.grid(row=15,column=1,columnspan=100)
+    eDept=ttk.Entry(top,width=30)
+    eDept.grid(row=16,column=1,columnspan=100)
     #dropdown boxes
-    var1=StringVar()
-    drop=ttk.OptionMenu(top,var1,'1st',"1st","2nd","3rd","4th")
-    drop.grid(row=17,column=1)
+    eyr=StringVar()
+    dropYear=ttk.OptionMenu(top,eyr,'1st',"1st","2nd","3rd","4th")
+    dropYear.grid(row=17,column=1)
     #checkbox
-    global var2
-    var2=IntVar()
-    c=ttk.Checkbutton(top,text="All the informations furnished above are correct",variable=var2)
-    c.grid(row=19,column=0)
+    cAgree=IntVar()
+    cag=ttk.Checkbutton(top,text="All the informations furnished above are correct",variable=cAgree)
+    cag.grid(row=19,column=0)
+
+    def click():
+        if cAgree.get()==0:
+            popup()
+            return
+         
+
     #submit button
     button_sub=ttk.Button(top,text="SUBMIT",command=click)
     button_sub.grid(row=20,column=1,padx=10,pady=10)
