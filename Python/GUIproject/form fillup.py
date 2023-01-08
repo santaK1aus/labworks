@@ -6,9 +6,19 @@ Created on Fri Jan  6 19:02:20 2023
 """
 
 from tkinter import *
-
+import re
+import datetime
+import csv
 from tkinter import messagebox
 import tkinter.ttk as ttk
+
+datafile = 'datarecords.csv'
+with open(datafile, 'r+',newline='',encoding='utf-8') as csvfile:
+    csvread = [line for line in csv.reader(csvfile)]
+    if len(csvread) == 0:
+        fields = ['ID','Name','Mobile Number','Date of Birth','Address 1','Address 2','State','Guardian\'s Name','Email ID','College','Course','Department','Year']
+        csvwrite = csv.writer(csvfile,lineterminator='\n')
+        csvwrite.writerow(fields)
 
 root=Tk()
 root.title("Data Entry")
@@ -19,18 +29,8 @@ root.geometry("1000x1000")
 style=ttk.Style(root)
 style.theme_use("default")
 
-
-#show warning
-def popup():
-    messagebox.showwarning("Warning","Please tick the checkbox")
-#def click():
-#    if(var2.get()==0):
-#        popup()
-#    else:
-#        return
-
 #submit window
-def open():
+def submitWindow():
     top=Toplevel()
     top.geometry("1000x1000")
     top.title("form submission")
@@ -102,11 +102,70 @@ def open():
     cag=ttk.Checkbutton(top,text="All the informations furnished above are correct",variable=cAgree)
     cag.grid(row=19,column=0)
 
+    #show warning
+    def popup():
+        messagebox.showwarning("Warning","Please tick the checkbox")
+
+    def checkValues():
+        #check if eName has correct parameters
+        errors=''
+        data=eName.get()
+        if(len(data)<1 or re.search('[^A-Za-z ]',data)):
+            errors='Incorrect parameters in Name Field\n'
+        #check eMnum
+        data=eMnum.get()
+        if(len(data)<1 or len(data)>10 or re.search('[^0-9]',data)):
+            errors+='Incorrect parameters in Mobile Number Field\n'
+        #check eDOB
+        data=eDOB.get().split('/')
+        try:
+            datetime.datetime(int(data[2]),int(data[1]),int(data[0]))
+        except ValueError:
+            errors+='Incorrect parameters in Date Field\n'
+        #check eGname
+        data=eGname.get()
+        if(len(data)<1 or re.search('[^A-Za-z ]',data)):
+            errors+='Incorrect parameters in Guardian Name Field\n'
+        #check email
+        data=str(eMail.get())
+        if(not re.search(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+',data)):
+            errors+='Incorrect Email\n'
+        #check encol
+        data=eNcol.get()
+        if(len(data)<1):
+            errors+='Incorrect parameters in Name of College Field\n'
+        #check eCname
+        data=eCname.get()
+        if(len(data)<1):
+            errors+='Incorrect parameters in Course Name Field\n'
+        #check eDept
+        data=eDept.get()
+        if(len(data)<1):
+            errors+='Incorrect parameters in Department Field'
+        if(len(errors)>0):
+            messagebox.showerror('Error(s)',errors)
+            top.focus_set()
+            return False
+        return True
+
     def click():
         if cAgree.get()==0:
             popup()
+            top.focus_set()
             return
-         
+        if not checkValues():
+            return
+        with open(datafile,'a',newline='',encoding='utf-8') as csvfile:
+            csvwrite = csv.writer(csvfile,lineterminator='\n')
+            #generate UID for name
+            uid = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+            datarow=[uid,eName.get(),eMnum.get(),eDOB.get(),eAd1.get(),eAd2.get(),
+                eState.get(),eGname.get(),eMail.get(),eNcol.get(),eCname.get(),eDept.get(),eyr.get()]
+            #write data in file
+            csvwrite.writerow(datarow)
+            messagebox.showinfo('Success','UID : '+uid+'\nName : '+eName.get())
+            #destroy submit window
+            top.destroy()
 
     #submit button
     button_sub=ttk.Button(top,text="SUBMIT",command=click)
@@ -120,7 +179,7 @@ def open():
 
 #main window
 l=ttk.Label(root,text="FORM FILLING UP", font=('Times', 20))
-button_1=ttk.Button(root,text="SUBMIT NEW ",width=13,command=open)
+button_1=ttk.Button(root,text="SUBMIT NEW ",width=13,command=submitWindow)
 button_2=ttk.Button(root,text="VIEW DATA",width=13)
 button_1.place(x=200,y=200)
 button_2.place(x=500,y=200)
