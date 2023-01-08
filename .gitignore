@@ -4,3 +4,4 @@ a.out
 __pycache__/
 temp*
 .vscode
+**/test.*
