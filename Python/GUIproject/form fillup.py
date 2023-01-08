@@ -13,7 +13,8 @@ from tkinter import messagebox
 import tkinter.ttk as ttk
 
 datafile = 'datarecords.csv'
-with open(datafile, 'r+',newline='',encoding='utf-8') as csvfile:
+with open(datafile, 'a+',newline='',encoding='utf-8') as csvfile:
+    csvfile.seek(0)
     csvread = [line for line in csv.reader(csvfile)]
     if len(csvread) == 0:
         fields = ['ID','Name','Mobile Number','Date of Birth','Address 1','Address 2','State','Guardian\'s Name','Email ID','College','Course','Department','Year']
@@ -24,6 +25,7 @@ root=Tk()
 root.title("Data Entry")
 root.configure(bg='grey')
 root.geometry("1000x1000")
+subWindowOpen = False
 
 #define style
 style=ttk.Style(root)
@@ -31,6 +33,11 @@ style.theme_use("default")
 
 #submit window
 def submitWindow():
+    global subWindowOpen
+    if subWindowOpen:
+        messagebox.showerror('Error','One instance is already running')
+        return
+    subWindowOpen = True
     top=Toplevel()
     top.geometry("1000x1000")
     top.title("form submission")
@@ -167,9 +174,18 @@ def submitWindow():
             #destroy submit window
             top.destroy()
 
+    def onClose():
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            top.destroy()
+            global subWindowOpen
+            subWindowOpen = False
+        else:
+            top.focus_set()
+    
     #submit button
     button_sub=ttk.Button(top,text="SUBMIT",command=click)
     button_sub.grid(row=20,column=1,padx=10,pady=10)
+    top.protocol('WM_DELETE_WINDOW', onClose)
         
         
         
