@@ -23,8 +23,8 @@ with open(datafile, 'a+',newline='',encoding='utf-8') as csvfile:
 
 root=Tk()
 root.title("Data Entry")
-root.configure(bg='grey')
-root.geometry("1000x1000")
+root.configure(bg='white')
+root.geometry("650x150")
 subWindowOpen = False
 viewWindowOpen = False
 nSubOpen = 0
@@ -32,7 +32,8 @@ nSubOpen = 0
 #define style
 style=ttk.Style(root)
 style.theme_use("default")
-
+ttk.Style().configure("TButton",padding=3,background="#fff")
+ttk.Style().configure("TLabel",padding=1,background="#fff")
 #submit window
 def submitWindow():
     global subWindowOpen
@@ -41,11 +42,16 @@ def submitWindow():
         return
     subWindowOpen = True
     top=Toplevel()
-    top.geometry("1000x1000")
+    top.resizable(False,False)
+    top.geometry("490x700")
     top.title("form submission")
+    top.configure(bg='white')
     style=ttk.Style(top)
     style.theme_use("clam")
-
+    style.configure("TLabel",padding=1,background="#fff")
+    style.configure("TButton",padding=1,background="#fff")
+    ttk.Style().configure("TOptionMenu",padding=1,background="#fff")
+    
     #Personal details
     l0=ttk.Label(top,text="PERSONAL DETAILS",font=('Times', 16))
     l0.grid(row=0,column=0,padx=20,pady=20)
@@ -110,6 +116,7 @@ def submitWindow():
     cAgree=IntVar()
     cag=ttk.Checkbutton(top,text="All the informations furnished above are correct",variable=cAgree)
     cag.grid(row=19,column=0)
+    
 
     #show warning
     def popup():
@@ -196,9 +203,12 @@ def viewWindow():
         return
     viewWindowOpen = True
     viewTop = Toplevel()
-    viewTop.geometry('700x700')
+    viewTop.title("Data Records")
+    viewTop.resizable(False,False)
+    viewTop.geometry('322x245')
     frame1=Frame(viewTop)
     frame1.grid()
+    viewTop.configure(bg='white')
 
     listbox = Listbox(frame1,height=15,width=50)
     listbox.grid()
@@ -234,10 +244,12 @@ def viewWindow():
                 break
 
         top=Toplevel()
-        top.geometry("1000x1000")
+        top.geometry("490x630")
+        top.configure(bg='white')
         top.title(data[0])
         style=ttk.Style(top)
         style.theme_use("clam")
+        style.configure("TLabel",padding=1,background="#fff")
 
         #Personal details
         l0=ttk.Label(top,text="PERSONAL DETAILS",font=('Times', 16))
@@ -315,11 +327,12 @@ def viewWindow():
 
 
 #main window
-l=ttk.Label(root,text="FORM FILLING UP", font=('Times', 20))
+l=ttk.Label(root,text="FORM FILL UP", font=('Times', 20))
 button_1=ttk.Button(root,text="SUBMIT NEW ",width=13,command=submitWindow)
 button_2=ttk.Button(root,text="VIEW DATA",width=13, command=viewWindow)
-button_1.place(x=200,y=200)
-button_2.place(x=500,y=200)
+button_1.place(x=95,y=100)
+button_2.place(x=463,y=100)
 l.pack(padx=200)
+root.resizable(False, False)
 
 root.mainloop()
