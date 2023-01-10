@@ -1,3 +1,10 @@
+'''
+Author : Mriganka Manna
+Date : 10/01/2023
+Ssynopssiss : The following code creates a simple scientific calculator, using the tkinter(open-source) module,
+    to create gui elements capable of human interactions. Contains 11 numeric buttons, 18 mathematical
+    buttons.
+'''
 import tkinter as tk
 from tkinter import ttk
 import time
