@@ -44,7 +44,7 @@ def submitWindow():
     top=Toplevel()
     top.resizable(False,False)
     top.geometry("490x700")
-    top.title("form submission")
+    top.title("Form Submission")
     top.configure(bg='white')
     style=ttk.Style(top)
     style.theme_use("clam")
@@ -95,7 +95,7 @@ def submitWindow():
     eAd2.grid(row=8,column=1,columnspan=100)
     #dropdown boxes
     eState=StringVar()
-    dropState=ttk.OptionMenu(top,eState,"West Bengal","Bihar","Jharkhand")
+    dropState=ttk.OptionMenu(top,eState,'West Bengal',"West Bengal","Bihar","Jharkhand")
     dropState.grid(row=10,column=1)
     eGname=ttk.Entry(top,width=30)
     eGname.grid(row=11,column=1,columnspan=100)
@@ -115,7 +115,7 @@ def submitWindow():
     #checkbox
     cAgree=IntVar()
     cag=ttk.Checkbutton(top,text="All the informations furnished above are correct",variable=cAgree)
-    cag.grid(row=19,column=0)
+    cag.grid(row=19,column=0,columnspan=3,padx=90)
     
 
     #show warning
@@ -193,7 +193,7 @@ def submitWindow():
     
     #submit button
     button_sub=ttk.Button(top,text="SUBMIT",command=click)
-    button_sub.grid(row=20,column=1,padx=10,pady=10)
+    button_sub.grid(row=20,column=0,columnspan=3,padx=90,pady=10)
     top.protocol('WM_DELETE_WINDOW', onClose)
         
 def viewWindow():
