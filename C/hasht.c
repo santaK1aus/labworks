@@ -8,7 +8,10 @@ int hashDiv(int k,int size){
 
 int hashMult(int k, int size){
 	float a = (pow(5,0.5)-1)/2;
-	return (int)(k*a-(int)k*a);
+	a = k*a;//-((int)k*a);
+	a-=(int)a;
+	printf("in mult : %f\n",a);
+	return (int)(a*size);
 }
 
 int hashMidSq(int k, int size){
@@ -28,22 +31,35 @@ int hashMidSq(int k, int size){
 }
 
 int hashFold(int k, int size){
-	int ss=0,t=size-1,rem=0,sum=0;
+	int ss=0,ks=0,t=size-1,rem=0,sum=0;
 	while(t>0){
 		t/=10;
 		ss++;
 	}
-	t=k/ss;
-	rem=k%ss;
+	t=k;
+	while(t>0){
+		t/=10;
+		ks++;
+	}
+	t=ks/ss;
+	rem=ks%ss;
 	ss=(int)pow(10,ss);
 	sum+=k%(int)pow(10,rem);
 	k/=(int)pow(10,rem);
 	while(t>0){
+
 		sum+=k%ss;
 		k/=ss;
 		t--;
 	}
 	return (sum%ss)%size;
+}
+
+void displayTable(int *arr,int size){
+	int i=0;
+	while(i<size)
+		printf("table[%d] --> %d\n",i,arr[i++]);
+	printf("\n");
 }
 
 void main(){
@@ -54,10 +70,17 @@ void main(){
 	for(int i=0;i<size;i++)
 		arr[i]=-1;
 	do{	
-		printf("Enter key (-1 to exit): ");
+		printf("Enter key (-1 to exit, -2 to display table): ");
 		scanf("%d",&key);
-		if(key==-1)
-			break;
+		switch(key){
+			case -1:exit(0);break;
+			case -2:displayTable(arr,size);continue;
+			//case -3:fetchKey(arr,size,key);
+			default:if(key<0){
+						printf("\nWrong Input\n");
+						continue;
+						}
+		}
 		printf("1. Division\n2. Multiplication\n3. Mid-Square\n4. Folding Method\nEnter Choice : ");
 		scanf("%d",&ch);
 		int index,t;
