@@ -8,9 +8,9 @@ int hashDiv(int k,int size){
 
 int hashMult(int k, int size){
 	float a = (pow(5,0.5)-1)/2;
-	a = k*a;//-((int)k*a);
+	a = k*a;
 	a-=(int)a;
-	printf("in mult : %f\n",a);
+	//printf("in mult : %f\n",a);
 	return (int)(a*size);
 }
 
