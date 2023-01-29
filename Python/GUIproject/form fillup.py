@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 """
 Created on Fri Jan  6 19:02:20 2023
-
 @author: ISHITA KAR
+         MRIGANKA MANNA
+         SUBHAYAN DAS
+         SWASTIKA KAYAL
 """
-
 from tkinter import *
 import re
 import datetime
@@ -28,7 +28,6 @@ root.geometry("650x150")
 subWindowOpen = False
 viewWindowOpen = False
 nSubOpen = 0
-
 #define style
 style=ttk.Style(root)
 style.theme_use("default")
@@ -51,7 +50,6 @@ def submitWindow():
     style.configure("TLabel",padding=1,background="#fff")
     style.configure("TButton",padding=1,background="#fff")
     ttk.Style().configure("TOptionMenu",padding=1,background="#fff")
-    
     #Personal details
     l0=ttk.Label(top,text="PERSONAL DETAILS",font=('Times', 16))
     l0.grid(row=0,column=0,padx=20,pady=20)
@@ -116,12 +114,9 @@ def submitWindow():
     cAgree=IntVar()
     cag=ttk.Checkbutton(top,text="All the informations furnished above are correct",variable=cAgree)
     cag.grid(row=19,column=0,columnspan=3,padx=90)
-    
-
     #show warning
     def popup():
         messagebox.showwarning("Warning","Please tick the checkbox")
-
     def checkValues():
         #check if eName has correct parameters
         errors=''
@@ -163,7 +158,6 @@ def submitWindow():
             top.focus_set()
             return False
         return True
-
     def click():
         if cAgree.get()==0:
             popup()
@@ -182,7 +176,8 @@ def submitWindow():
             messagebox.showinfo('Success','UID : '+uid+'\nName : '+eName.get())
             #destroy submit window
             top.destroy()
-
+            global subWindowOpen
+            subWindowOpen = False
     def onClose():
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             top.destroy()
@@ -190,7 +185,6 @@ def submitWindow():
             subWindowOpen = False
         else:
             top.focus_set()
-    
     #submit button
     button_sub=ttk.Button(top,text="SUBMIT",command=click)
     button_sub.grid(row=20,column=0,columnspan=3,padx=90,pady=10)
@@ -222,7 +216,6 @@ def viewWindow():
             csvread = csv.DictReader(csvfile)
             for row in csvread:
                 listbox.insert(END,row['ID']+', '+row['Name'])
-    
     fillList()
 
     def filldata(event):
@@ -233,7 +226,6 @@ def viewWindow():
             messagebox.showinfo('Info','Cannot open more than 2 instances')
             return
         nSubOpen+=1
-        
         data=[]
         with open(datafile,'r',encoding='UTF-8') as csvfile:
             csvread = csv.reader(csvfile)
@@ -250,7 +242,6 @@ def viewWindow():
         style=ttk.Style(top)
         style.theme_use("clam")
         style.configure("TLabel",padding=1,background="#fff")
-
         #Personal details
         l0=ttk.Label(top,text="PERSONAL DETAILS",font=('Times', 16))
         l0.grid(row=0,column=0,padx=20,pady=20)
@@ -280,7 +271,6 @@ def viewWindow():
         ldep.grid(row=16,column=0,padx=10,pady=10)
         lyr=ttk.Label(top,text="YEAR")
         lyr.grid(row=17,column=0,padx=10,pady=10)
-
         #Fields
         eName=ttk.Label(top,width=30,text=data[1])
         eName.grid(row=1,column=1,columnspan=100)
@@ -307,7 +297,7 @@ def viewWindow():
         eDept=ttk.Label(top,width=30,text=data[11])
         eDept.grid(row=16,column=1,columnspan=100)
         #dropdown boxes
-        dropYear=ttk.Label(top,width=30,text=data[1])
+        dropYear=ttk.Label(top,width=30,text=data[12])
         dropYear.grid(row=17,column=1,columnspan=100)
 
         def closeSub():
@@ -324,7 +314,6 @@ def viewWindow():
 
     viewTop.protocol('WM_DELETE_WINDOW',closeViewTop)
     listbox.bind('<<ListboxSelect>>',filldata)
-
 
 #main window
 l=ttk.Label(root,text="FORM FILL UP", font=('Times', 20))
